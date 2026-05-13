@@ -16,6 +16,9 @@ public class GetOrderQueryHandler:IRequestHandler<GetOrderQuery,List<Order>>
 
     public async Task<List<Order>> Handle(GetOrderQuery request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Orders.ToListAsync();
+        return await _dbContext.Orders
+            .Include(x => x.Products)
+            .Include(x=>x.User)
+            .ToListAsync(cancellationToken);
     }
 }

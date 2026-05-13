@@ -5,15 +5,15 @@ namespace ECommerce.Domain.Entities;
 public class Order:BaseEntity
 {
     public decimal TotalPrice { get; private set; }
+    public Guid UserId { get; private set; }
+    public User User { get; private set; }
     public List<Product> Products { get; private set; } = new();
 
-    public Order(decimal totalPrice)
+    public Order(Guid userId)
     {
-        if (totalPrice <= 0)
-        {
-            throw new ArgumentException("TotalPrice 0 dan büyük olmalı", nameof(totalPrice));
-        }
-        TotalPrice = totalPrice;
+ 
+        TotalPrice = 0;
+        UserId = userId;
         CreatedDate = DateTime.UtcNow;
     }
 

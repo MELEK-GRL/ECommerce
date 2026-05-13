@@ -7,4 +7,5 @@ public class GetOrderQuery:IRequest<List<Order>>
 {
     public decimal TotalPrice { get; set; }
     public Guid OrderId { get; set; }
+    public User User { get; set; }
 }

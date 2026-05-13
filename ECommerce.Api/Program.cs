@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using ECommerce.Application.Features.Products.Commands.CreateProduct;
 using ECommerce.Infrastructure.Data;
 using MediatR;
@@ -6,7 +7,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Controller
-builder.Services.AddControllers();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler =
+            ReferenceHandler.IgnoreCycles;
+    });
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

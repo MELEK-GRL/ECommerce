@@ -16,6 +16,9 @@ public class GetUserQueriesHandler:IRequestHandler<GetUserQueries,List<User>>
 
     public async Task<List<User>> Handle(GetUserQueries request, CancellationToken cancellationToken)
     {
-        return await _dbContext.Users.ToListAsync();
+        return await _dbContext.Users
+            .Include(x => x.Orders)
+            .ThenInclude(x => x.Products)
+            .ToListAsync(cancellationToken);
     }
 }
